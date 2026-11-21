@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" translate="no">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="google" content="notranslate" />
+<title>قضايتي</title>
+<meta name="description" content="نظّم وراجع قضايا النيابات بسهولة وبدون اتصال" />
+<meta name="theme-color" content="#f9f9fc" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="قضايتي" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="stylesheet" href="fonts/fonts.css" />
+<style>
+:root{--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);--sal:env(safe-area-inset-left,0px);--sar:env(safe-area-inset-right,0px)}
+html{min-height:calc(100% + var(--sat));-webkit-tap-highlight-color:transparent;-webkit-overflow-scrolling:touch;touch-action:manipulation}
+html,body{overscroll-behavior:none;margin:0}
+body{min-height:100dvh;overflow:hidden;background:rgb(var(--color-bg,255 255 255));-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,[contenteditable]{-webkit-user-select:text;user-select:text}
+#app-shell{display:contents}#app-shell>#root{position:fixed;top:0;left:0;right:0;bottom:0}
+#root a[href*="whacka.app"]{display:none!important}
+#app-splash{position:fixed;inset:0;z-index:2147483600;display:flex;align-items:center;justify-content:center;background:#f9f9fc;transition:opacity .4s ease}#app-splash.hide{opacity:0;pointer-events:none}#app-splash img{width:28vmin;height:28vmin;border-radius:22.37%;display:block}
+</style>
+<link rel="stylesheet" href="assets/app.css" />
+<script src="assets/local-store.js"></script>
+<script type="module" src="assets/app.js"></script>
+</head>
+<body>
+<div id="app-splash" aria-hidden="true"><img src="splash-icon.webp" alt="" /></div>
+<div id="app-shell"><div id="root"></div></div>
+<script>
+(function(){
+  function clean(){
+    document.querySelectorAll('#root a').forEach(function(a){ if(/Made with/.test(a.textContent)) a.style.display='none'; });
+    var s=document.getElementById('app-splash'), r=document.getElementById('root');
+    if(s && r && r.childElementCount>0){ s.classList.add('hide'); setTimeout(function(){ s.remove(); },450); }
+  }
+  new MutationObserver(clean).observe(document.documentElement,{childList:true,subtree:true});
+  if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){
+    window.addEventListener('load',function(){ navigator.serviceWorker.register('./sw.js').catch(function(e){console.warn('SW',e)}); });
+  }
+})();
+</script>
+</body>
+</html>
